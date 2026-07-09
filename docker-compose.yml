@@ -1,6 +1,7 @@
 version: "3.8"
 services:
 
+
   fastapi:
     build:
       context: .
@@ -57,7 +58,7 @@ services:
       SQLSERVER_HOST: "sqlserver"
       QDRANT_URL: "http://qdrant:6333"
     volumes:
-      - uploads_data:/app/uploads
+      - ${DATA_ROOT}/uploads:/app/uploads   #uploads_data:/app/uploads
     depends_on:
       sqlserver:
         condition: service_healthy
@@ -92,7 +93,7 @@ services:
       SQLSERVER_HOST: "sqlserver"
       QDRANT_URL: "http://qdrant:6333"
     volumes:
-      - uploads_data:/app/uploads   #HA IL VOLUMES!
+      - ${DATA_ROOT}/uploads:/app/uploads   #uploads_data:/app/uploads
     depends_on:
       sqlserver:
         condition: service_healthy
@@ -195,7 +196,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ${DATA_ROOT}/redis:/data #redis_data:/data
+      - ${DATA_ROOT}/redis:/data   #redis_data:/data
     command: >
       redis-server
       --maxmemory 2gb
@@ -221,7 +222,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ${DATA_ROOT}/sqlserver:/var/opt/mssql  #old (volumes all'interno del container) sqlserver_data:/var/opt/mssql 
+      - ${DATA_ROOT}/sqlserver:/var/opt/mssql  #sqlserver_data:/var/opt/mssql 
       - ./docker/sqlserver/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./docker/sqlserver/entrypoint.sh:/init/entrypoint.sh:ro
     environment:
