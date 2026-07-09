@@ -1,4 +1,6 @@
 version: "3.8"
+name: rag-system  #nome prj! (se non lo specifici qua allora si setta come nome folder che contiene questo docker-compose file) quindi ora e.g.i nomi dei containers saranno <project_name>-<service_name>-<index>
+
 services:
 
 
@@ -6,7 +8,7 @@ services:
     build:
       context: .
       dockerfile: docker/fastapi.Dockerfile
-    #container_name: fastapi  !non specificare il nome, xk tu hai 1 solo server quindi ci sarebbe conflitto nome container e.g.fastapi di dev env -- fastapi staging env. senza sepcificare docker crea automaticamente e.g. <nome_prj>-fastapi-1
+    #container_name: fastapi  !non specificare il nome, xk tu hai 1 solo server quindi ci sarebbe conflitto nome container e.g.fastapi di dev env -- fastapi staging env. senza sepcificare docker crea automaticamente e.g. <project_name>-<service_name>-<index> cioe <nome_prj>-fastapi-1
     restart: unless-stopped
     ports:
       - "8000:8000"
