@@ -26,7 +26,7 @@ services:
         condition: service_started
     volumes:
       - ./config:/app/config:ro
-      - ${DATA_ROOT}/uploads:/app/uploads  #uploads_data:/app/uploads
+      - ${DATA_ROOT}/uploads:/app/uploads  #uploads_data:/app/uploads, 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -249,16 +249,16 @@ services:
     networks:
       - rag-network
 
-
-volumes:
-  qdrant_data:
-    driver: local
-  redis_data:
-    driver: local
-  sqlserver_data:
-    driver: local
-  uploads_data:
-    driver: local
+#questo non serve piu xk stai usando bind mount verso directory specifiche del server
+# volumes:
+#   qdrant_data:
+#     driver: local
+#   redis_data:
+#     driver: local
+#   sqlserver_data:
+#     driver: local
+#   uploads_data:
+#     driver: local
 
 networks:
   rag-network:
