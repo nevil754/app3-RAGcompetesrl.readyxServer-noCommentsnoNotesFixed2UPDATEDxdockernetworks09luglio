@@ -26,7 +26,7 @@ services:
         condition: service_started
     volumes:
       - ./config:/app/config:ro
-      - uploads_data:/app/uploads
+      - ${DATA_ROOT}/uploads:/app/uploads  #uploads_data:/app/uploads
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -92,7 +92,7 @@ services:
       SQLSERVER_HOST: "sqlserver"
       QDRANT_URL: "http://qdrant:6333"
     volumes:
-      - uploads_data:/app/uploads
+      - uploads_data:/app/uploads   #HA IL VOLUMES!
     depends_on:
       sqlserver:
         condition: service_healthy
@@ -173,7 +173,7 @@ services:
       - "6333:6333"
       - "6334:6334"
     volumes:
-      - qdrant_data:/qdrant/storage
+      - ${DATA_ROOT}/qdrant:/qdrant/storage   #qdrant_data:/qdrant/storage
     environment:
       QDRANT__SERVICE__HTTP_PORT: 6333
       QDRANT__SERVICE__GRPC_PORT: 6334
@@ -195,7 +195,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
+      - ${DATA_ROOT}/redis:/data #redis_data:/data
     command: >
       redis-server
       --maxmemory 2gb
@@ -221,7 +221,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - sqlserver_data:/var/opt/mssql
+      - ${DATA_ROOT}/sqlserver:/var/opt/mssql #sqlserver_data:/var/opt/mssql
       - ./docker/sqlserver/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./docker/sqlserver/entrypoint.sh:/init/entrypoint.sh:ro
     environment:
