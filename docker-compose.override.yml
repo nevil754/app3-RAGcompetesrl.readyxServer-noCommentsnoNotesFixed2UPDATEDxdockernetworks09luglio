@@ -3,6 +3,7 @@ version: "3.8"
  
 services:
  
+
   fastapi:
     command: >
       uvicorn main:app
@@ -20,10 +21,12 @@ services:
       - ./app:/app/app
       - ./config:/app/config
       - ./main.py:/app/main.py
+      - ${DATA_ROOT}/uploads:/app/uploads
     ports:
       - "8000:8000"
       - "5678:5678"
  
+
   celery-worker-high:
     command: >
       celery -A app.workers.celery_app.celery_app worker
@@ -38,7 +41,9 @@ services:
     volumes:
       - ./app:/app/app
       - ./config:/app/config
+      - ${DATA_ROOT}/uploads:/app/uploads
  
+
   celery-worker-default:
     command: >
       celery -A app.workers.celery_app.celery_app worker
@@ -53,7 +58,9 @@ services:
     volumes:
       - ./app:/app/app
       - ./config:/app/config
- 
+      - ${DATA_ROOT}/uploads:/app/uploads
+
+
   celery-beat:
     environment:
       APP_ENVIRONMENT: "development"
@@ -61,6 +68,7 @@ services:
       - ./app:/app/app
       - ./config:/app/config
  
+
   qdrant:
     environment:
       QDRANT__LOG_LEVEL: "WARN"
@@ -68,6 +76,7 @@ services:
       - "6333:6333"
       - "6334:6334"
  
+
   redis:
     command: >
       redis-server
@@ -78,6 +87,7 @@ services:
     environment:
       REDIS_PASSWORD: ""
  
+
   chainlit:
     command: chainlit run app.py --host 0.0.0.0 --port 8080 -w
     environment:
@@ -86,6 +96,7 @@ services:
     volumes:
       - ./chainlit_app/app.py:/app/app.py
       - ./chainlit_app/.chainlit:/app/.chainlit
+
 
   sqlserver:
     environment:
