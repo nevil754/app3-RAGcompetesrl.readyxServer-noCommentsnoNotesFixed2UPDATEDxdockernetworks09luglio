@@ -1,5 +1,5 @@
 version: "3.8"
-name: rag-system  #nome prj! (se non lo specifici qua allora si setta come nome folder che contiene questo docker-compose file) quindi ora e.g.i nomi dei containers saranno <project_name>-<service_name>-<index>
+name: ${COMPOSE_PROJECT_NAME}  #nome prj! (se non lo specifici qua allora si setta come nome folder che contiene questo docker-compose file) quindi ora e.g.i nomi dei containers saranno <project_name>-<service_name>-<index>
 
 services:
 
@@ -60,7 +60,7 @@ services:
       SQLSERVER_HOST: "sqlserver"
       QDRANT_URL: "http://qdrant:6333"
     volumes:
-      - ${DATA_ROOT}/uploads:/app/uploads  #corretto deve sharing stesso volume also w fastapi e celery-worker-default  #uploads_data:/app/uploads
+      - ${DATA_ROOT}/uploads:/app/uploads  #corretto deve sharing stesso volume anche con fastapi e celery-worker-default   #uploads_data:/app/uploads
     depends_on:
       sqlserver:
         condition: service_healthy
