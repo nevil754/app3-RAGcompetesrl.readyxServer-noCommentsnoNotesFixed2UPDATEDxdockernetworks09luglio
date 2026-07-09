@@ -1,0 +1,58 @@
+
+#Segreti
+.env
+.env.*
+!.env.example
+
+#Git
+.git
+.gitignore
+
+#Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist/
+build/
+.eggs/
+
+#Test e dev
+tests/
+pytest_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+#Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+#OS
+.DS_Store
+Thumbs.db
+
+#Logs locali
+logs/
+*.log
+
+#Cache modelli locali (vengono scaricati nel container)
+.cache/
+
+#Docker stesso
+docker/
+docker-compose*.yml
+
+#Docs
+README.md
+*.md
+docs/
+
+#Scripts dev
+scripts/

@@ -1,0 +1,21 @@
+# Dipendenze solo per sviluppo/test — non installate in prod
+
+#Testing
+pytest==8.3.3   #test automatici in python
+pytest-asyncio==0.24.0  #test async automatici in python
+pytest-cov==6.0.0  #x coverage test
+httpx==0.28.0         #client async per test FastAPI
+factory-boy==3.3.1    #generazione fake test data.
+
+#Linting / Formatting
+ruff==0.8.1       #linter+formatter ultraveloce, sostituisce black isort flake8
+mypy==1.13.0        #type checking statico
+pre-commit==4.0.1   #hook automatici git pre-commit
+
+#Dev tools
+ipython==8.29.0  #shell Python avanzata
+rich==13.9.4    #terminale colorato e formattato, ottimo per debug e visualizzazione dati
+
+#x develop chat ui
+chainlit==2.11.1   #🔥 ui chat per vedere result
+

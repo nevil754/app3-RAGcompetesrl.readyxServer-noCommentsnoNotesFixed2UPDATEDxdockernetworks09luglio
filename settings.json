@@ -1,0 +1,13 @@
+"todo-tree.general.tags": [
+  "TODO",
+  "FIXME",
+  "BUG",
+  "NOTE",
+  "RAG",
+  "COLLECTION"
+],
+"todo-tree.highlights.defaultHighlight": {
+  "type": "tag",
+  "foreground": "black",
+  "background": "yellow"
+}

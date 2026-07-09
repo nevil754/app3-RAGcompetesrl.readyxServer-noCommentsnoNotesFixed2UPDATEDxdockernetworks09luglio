@@ -1,0 +1,28 @@
+[project]
+# Disabilita telemetria verso chainlit.io
+enable_telemetry = false
+
+[UI]
+# Nome mostrato nell'interfaccia
+name = "Compet-e AI"
+description = "Sistema RAG Enterprise per documenti aziendali"
+# Collassa i messaggi lunghi di default
+default_collapse_content = true
+# Non espandere tutti i messaggi al caricamento
+default_expand_messages = false
+# Non mostrare la chain-of-thought (steps interni) all'utente
+hide_cot = true
+# Tema scuro per un look professionale
+theme = "dark"
+
+[features]
+# Disabilita il prompt playground (non necessario in questo contesto)
+prompt_playground = false
+# Non renderizzare HTML nei messaggi (sicurezza)
+unsafe_allow_html = false
+# Disabilita LaTeX (non necessario)
+latex = false
+
+[auth]
+# Login obbligatorio — gestito da @cl.password_auth_callback in app.py
+require_login = true

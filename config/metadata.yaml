@@ -1,0 +1,123 @@
+
+common_fields:
+  - name: "tenant_id"
+    type: "keyword"
+    required: true
+    description: "ID tenant proprietario del documento"
+
+  - name: "collection_id"
+    type: "keyword"
+    required: true
+    description: "ID collection Qdrant di appartenenza"
+
+  - name: "document_id"
+    type: "keyword"
+    required: true
+    description: "ID documento in SQL Server"
+
+  - name: "filename"
+    type: "keyword"
+    required: true
+
+  - name: "file_type"
+    type: "keyword"
+    required: true
+    values: ["pdf", "docx", "xlsx", "pptx", "txt", "md"]
+
+  - name: "language"
+    type: "keyword"
+    required: false
+    default: "it"
+
+  - name: "chunk_index"
+    type: "integer"
+    required: true
+    description: "Posizione del chunk nel documento originale"
+
+  - name: "page_number"
+    type: "integer"
+    required: false
+    description: "Pagina del documento di origine"
+
+  - name: "ingested_at"
+    type: "datetime"
+    required: true
+
+document_types:
+  contract:
+    description: "Contratti, accordi, convenzioni"
+    detect_keywords: ["contratto", "accordo", "convenzione", "protocollo d'intesa", "agreement"]
+    fields:
+      - name: "doc_type"
+        value: "contract"
+      - name: "parties"
+        type: "text"
+        description: "Parti contraenti"
+      - name: "contract_date"
+        type: "date"
+      - name: "expiry_date"
+        type: "date"
+      - name: "contract_value"
+        type: "float"
+      - name: "jurisdiction"
+        type: "keyword"
+
+  legal_opinion:
+    description: "Pareri legali, note giuridiche"
+    detect_keywords: ["parere", "nota legale", "opinion", "memo giuridico"]
+    fields:
+      - name: "doc_type"
+        value: "legal_opinion"
+      - name: "author"
+        type: "text"
+      - name: "opinion_date"
+        type: "date"
+      - name: "legal_area"
+        type: "keyword"
+        values: ["civile", "penale", "amministrativo", "commerciale", "lavoro", "fiscale"]
+
+  regulation:
+    description: "Normative, leggi, regolamenti, circolari"
+    detect_keywords: ["decreto", "legge", "regolamento", "circolare", "direttiva", "norma"]
+    fields:
+      - name: "doc_type"
+        value: "regulation"
+      - name: "norm_number"
+        type: "keyword"
+        description: "Es: D.Lgs. 231/2001"
+      - name: "issue_date"
+        type: "date"
+      - name: "effective_date"
+        type: "date"
+      - name: "issuing_body"
+        type: "keyword"
+
+  financial:
+    description: "Bilanci, report finanziari, perizie"
+    detect_keywords: ["bilancio", "stato patrimoniale", "conto economico", "perizia", "valutazione"]
+    fields:
+      - name: "doc_type"
+        value: "financial"
+      - name: "fiscal_year"
+        type: "integer"
+      - name: "company_name"
+        type: "text"
+      - name: "document_date"
+        type: "date"
+
+  generic:
+    description: "Documento generico non classificato"
+    fields:
+      - name: "doc_type"
+        value: "generic"
+
+filterable_fields:
+  - "tenant_id"
+  - "collection_id"
+  - "file_type"
+  - "doc_type"
+  - "language"
+  - "legal_area"
+  - "fiscal_year"
+  - "ingested_at"
+

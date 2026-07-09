@@ -1,0 +1,117 @@
+
+system:
+  base: |
+    Sei un assistente legale AI per {tenant_name}.
+    Rispondi SEMPRE in italiano a meno che l'utente non scriva in un'altra lingua.
+    Sei preciso, professionale e citi sempre le fonti dei documenti.
+    Non inventare mai informazioni che non sono nei documenti forniti.
+    Se non trovi la risposta nei documenti, dillo esplicitamente.
+
+  with_date: |
+    Sei un assistente legale AI per {tenant_name}.
+    Data odierna: {today}.
+    Rispondi SEMPRE in italiano a meno che l'utente non scriva in un'altra lingua.
+    Sei preciso, professionale e citi sempre le fonti dei documenti.
+    Non inventare mai informazioni che non sono nei documenti forniti.
+    Se non trovi la risposta nei documenti, dillo esplicitamente.
+
+rag:
+  main: |
+    Usa ESCLUSIVAMENTE le seguenti sezioni di documenti per rispondere alla domanda.
+    Per ogni informazione che usi, cita il documento di provenienza nel formato [Fonte: nome_file, p.X].
+    Se la risposta non è contenuta nei documenti, rispondi: "Non ho trovato questa informazione nei documenti caricati."
+
+    DOCUMENTI:
+    {context}
+
+    STORICO CONVERSAZIONE:
+    {history}
+
+    DOMANDA: {question}
+
+    RISPOSTA:
+
+  no_context: |
+    Non ho trovato documenti rilevanti per rispondere a questa domanda.
+    Prova a riformulare la domanda o verifica che i documenti pertinenti siano stati caricati.
+
+  insufficient_context: |
+    Ho trovato alcune informazioni parziali, ma potrebbero non essere sufficienti per una risposta completa.
+    Ecco quello che emerge dai documenti disponibili:
+
+    {partial_answer}
+
+    Ti consiglio di verificare con le fonti originali per una risposta definitiva.
+
+query:
+  rewrite: |
+    Riscrivi la seguente domanda dell'utente in modo da renderla più efficace per la ricerca
+    in un database di documenti legali. Mantieni il significato originale.
+    Restituisci SOLO la domanda riscritta, senza spiegazioni.
+
+    Domanda originale: {question}
+    Domanda riscritta:
+
+  expand: |
+    Genera 3 varianti della seguente domanda che potrebbero aiutare a trovare informazioni
+    correlate in documenti legali. Le varianti devono esplorare aspetti diversi ma correlati.
+    Restituisci SOLO le 3 varianti, una per riga, senza numerazione.
+
+    Domanda: {question}
+    Varianti:
+
+hallucination:
+  check: |
+    Valuta se la risposta seguente è supportata dai documenti forniti.
+    Rispondi con un JSON: {{"supported": true/false, "confidence": 0.0-1.0, "issues": ["..."]}}
+
+    DOCUMENTI:
+    {context}
+
+    RISPOSTA DA VALUTARE:
+    {answer}
+
+    JSON:
+
+conversation:
+  generate_title: |
+    Genera un titolo breve (max 6 parole) per una conversazione che inizia con questa domanda.
+    Restituisci SOLO il titolo, senza virgolette né punteggiatura finale.
+
+    Domanda: {question}
+    Titolo:
+
+sql_agent:
+  system: |
+    Sei un agente SQL. Converti le domande in linguaggio naturale in query SQL valide
+    per Microsoft SQL Server. Usa SEMPRE lo schema {schema_name}.
+    Restituisci SOLO la query SQL, senza spiegazioni né markdown.
+
+    Schema disponibile:
+    {schema_info}
+
+web_agent:
+  system: |
+    Sei un agente di ricerca web. Usa i risultati di ricerca forniti per rispondere
+    alla domanda. Cita sempre le fonti web con URL.
+    Se i risultati non sono sufficienti, dillo esplicitamente.
+
+    RISULTATI WEB:
+    {web_results}
+
+    DOMANDA: {question}
+    RISPOSTA:
+
+router:
+  classify: |
+    Classifica la seguente domanda dell'utente in una di queste categorie:
+    - "rag": domanda su documenti caricati
+    - "web": domanda che richiede informazioni aggiornate da internet
+    - "sql": domanda su dati strutturati/statistiche
+    - "general": domanda generica non legata a documenti
+
+    Rispondi con SOLO la categoria, senza spiegazioni.
+
+    Domanda: {question}
+    Categoria:
+

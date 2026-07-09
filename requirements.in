@@ -1,0 +1,100 @@
+
+langchain==0.3.9  #x prompt, memory, tools, retrieval, chains.
+langchain-core==0.3.21  #x runnable, prompt templates, message objects, output parsers.
+langchain-community==0.3.9  #x integrazioni community: loader, vector DB, tools, embedding providers, ecc.
+langgraph==0.2.53
+langchain-openai==0.2.10
+langchain-ollama==0.2.1
+
+pydantic>=2.10.3,<3.0.0  #🔥validazione e struttura dati in Python
+pydantic-settings==2.6.1  #x gestione configurazione, carica da .env, variabili ambiente, ect. molto utile per gestire configurazione in modo pulito e sicuro, soprattutto in progetti più grandi
+python-dotenv==1.0.1   #x caricare .env
+pyyaml==6.0.2  #parsing file .yaml
+qdrant-client==1.12.1    #🔥x qdrant(db vector)
+fastembed==0.4.1   #🔥lo usi e wrappi model from huggingface BAAI/BGE-M3. better better di OllamaEmbeddings( here model ollama x embedding)
+sentence-transformers==3.3.1   #x modelli re-ranking & semantic similarity tecnhique. il vecchio 'transformers' oggi è sostituito da questo o BETTER da 'fastembed'
+rank-bm25==0.2.2    #keyword search classico
+
+#ingestion docs
+docling[vlm]==2.12.0   #parsing document avanzato, preserva anche struttura complessa, ottimo x contratti legali/bilanci docs/ect, RAG pro. e.g.PDF → testo strutturato
+unstructured[pdf,docx]==0.16.11  #INFO NON HTML?? general document parsing .pdf/html/ect, usato come fallback
+pypdf==5.1.0     #estrazione base testo pdf, veloce ma limitato
+python-docx==1.1.2  #estrazione testo da .docx
+openpyxl==3.1.5  #estrazione testo da file .excel
+markitdown>=0.0.1  #converte docs->markdown pulito strutturato
+markdown2==2.5.1  #converte markdown → HTML
+xhtml2pdf==0.2.17  #converte HTML → PDF
+
+#per ora non utilizzo LibreOffice(utilizzata in prj mikeoss-competesrl), è img docker pesante e richiede installazione su pc/server. magari puoi vedere se utilizzarla in futuro cmnq ora sei gia top con le libs 
+
+pandas==2.2.3 #x tabelle/csv/ect
+tavily-python==0.5.0  #motore di ricerca web progettato per RAG e agenti, è “LLM-ready results” quindi ti restituisce gia anche summary-extracted text-relevance score, 💰free solo fino a 1,000 API credits/month (OTTIMO QUINDI DOVE QUESTA FEAT NON E' FONDAMENTALE MA VUOI AVERLA & easy)
+ddgs>=9.10.0   #duckduckgo search (era chiamato duckduckgo-search), ti da i links come te li darebbe google se fai una ricerca manualmente. "Dimmi dove si trova l’informazione"
+beautifulsoup4==4.12.3  #scraping web pages, estrazione testo da pagine web. "Apri quella pagina e leggimi tutto"s
+
+# senza tavily-python faresti
+# User query
+#    ↓
+# DDGS
+#    ↓
+# scraping (BeautifulSoup)
+#    ↓
+# cleaning
+#    ↓
+# LLM
+# invece con tavily-python fai solo
+# User query
+#    ↓
+# Tavily search
+#    ↓
+# clean context (no scraping)
+#    ↓
+# LLM answer
+
+
+fastapi==0.115.5   #X BACKEND e esporre apis
+uvicorn[standard]==0.32.1   #server ASGI per FastAPI
+sse-starlette==2.1.3  #🔥streaming sse (token-by-token)
+python-multipart==0.0.12   #upload file multipart/form-data, x upload file in FastAPI
+
+psycopg[binary]==3.3.4  #postgreSQL driver
+sqlalchemy==2.0.36   #orm, scrivere db in modo astratto
+pyodbc==5.2.0   #connessione SQL Server via ODBC.
+aioodbc==0.5.0   #versione async di pyodbc
+redis==5.2.1  #🔥cache, VISTO CHE TU USI ANCHE celery(eseguire lavori async/background), allora in questo caso redis lavora ANCHE come message broker.g
+
+aiohttp==3.11.9  #async http client
+httpx==0.28.0  #alternative moderna a requests, serve per async + sync HTTP calls
+celery==5.4.0   #🔥x eseguire lavori async/background, x async ingestion, e job scheduling
+celery-redbeat==2.3.2  #(ex plugin 'redbeat') scheduler Celery persistito su Redis FORSE ORA NON LO STO FACENDO!??INFO
+#redbeat==2.2.0   
+
+aiosqlite==0.20.0  #sqlite async, x piccoli storage
+#asyncpg    #driver PostgreSQL async e velocissimo, NON SERVE XK USO SQLSERVER(microsoft)
+
+##security
+python-jose[cryptography]==3.3.0  #JWT tokens
+passlib[bcrypt]==1.7.4            #password hashing
+cryptography==43.0.3  #primitive crittografiche.
+
+##logging / observability
+loguru==0.7.3  #LOGGING avanzato python, mooolto piu avanzato di semplice 'import logging', in un sistema rag/ai devi poter vedere tutto!
+langsmith==0.1.147  #tracing/debug/evaluation pipeline LLM.
+opentelemetry-api==1.28.2  #telemetria distribuita, tracciare performance, errori, ect in modo centralizzato
+opentelemetry-sdk==1.28.2  #telemetria distribuita, tracciare performance, errori, ect in modo centralizzato
+tiktoken==0.8.0   #🔥token count, stimare costi LLM
+
+##evaluation
+ragas==0.2.6   #valutare qualità RAG, valuta hallucination - faithfulness - context relevance
+
+##utils
+tenacity==9.0.0   #retry con backoff esponenziale
+ujson==5.10.0     #JSON serialization veloce
+python-slugify==8.0.4  #trasforma stringhe in slug URL-safe
+
+##external llm providers
+#openai==1.55.3
+#google-generativeai==0.8.3      # per gemini
+
+#asyncpg    #driver PostgreSQL async e velocissimo
+
