@@ -58,7 +58,7 @@ services:
       SQLSERVER_HOST: "sqlserver"
       QDRANT_URL: "http://qdrant:6333"
     volumes:
-      - ${DATA_ROOT}/uploads:/app/uploads   #uploads_data:/app/uploads
+      - ${DATA_ROOT}/uploads:/app/uploads  #corretto deve sharing stesso volume also w fastapi e celery-worker-default  #uploads_data:/app/uploads
     depends_on:
       sqlserver:
         condition: service_healthy
