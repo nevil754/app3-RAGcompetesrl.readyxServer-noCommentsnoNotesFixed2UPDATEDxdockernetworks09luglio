@@ -19,7 +19,7 @@ services:
       SQLSERVER_PORT: "1433"
       SQLSERVER_DB: "RAGChat"
       QDRANT_URL: "http://qdrant:6333"
-      BASE_URL_OLLAMA: "http://ollama:11434"
+      BASE_URL_OLLAMA: "http://srvai2k22:11434/"   #"http://ollama:11434"
     depends_on:
       sqlserver:
         condition: service_healthy
