@@ -33,13 +33,13 @@ class AppSettings(BaseSettings):
 
     llm_provider: str = "ollama"
     llm_model: str = "llama3.1"
-    llm_base_url: str = "http://ollama:11434"
+    llm_num_ctx: int = 2048
     llm_api_key: str = ""
+    llm_base_url: str = "http://ollama:11434"
     llm_temperature: float = 0.0
     llm_max_tokens: int = 2048
     llm_timeout: int = 120
     llm_streaming: bool = True
-    llm_num_ctx: int = 2048
 
     embeddings_provider: str = "fastembed"
     embeddings_model: str = "BAAI/BGE-M3"
@@ -112,8 +112,9 @@ class AppSettings(BaseSettings):
 
     langsmith_enabled: bool = False
     langsmith_api_key: str = ""
-    langsmith_project: str = "rag-enterprise-legal"
+    langsmith_project: str = "competeSrl-RAGenterprise"
     langsmith_endpoint: str = "https://eu.api.smith.langchain.com"
+    #langchain_tracing_v2: bool = True
     opentelemetry_enabled: bool = False
 
     log_level: str = "INFO"
