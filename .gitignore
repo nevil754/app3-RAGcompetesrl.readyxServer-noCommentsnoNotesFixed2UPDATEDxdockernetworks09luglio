@@ -143,6 +143,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+.claude/*
 CLAUDE.md
 CLAUDE2.md
 # mypy
